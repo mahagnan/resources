@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// ============================================================
+// Firestore security rules
+// Paste this into Firebase Console → Firestore Database → Rules
+// ------------------------------------------------------------
+// This is the REAL enforcement of "only mahagnan01@gmail.com can
+// manage the gallery." Hiding the upload button in the UI is just
+// for tidiness — this is what actually blocks other accounts.
+// ============================================================
+
+function isSignedIn() {
+  return request.auth != null;
+}
+
+function isAdmin() {
+  return isSignedIn() && request.auth.token.email == "mahagnan01@gmail.com";
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // images: PUBLIC read — the gallery itself (thumbnails, titles,
+    // descriptions) is browsable by anyone, signed in or not.
+    // Sign-in is only enforced client-side at the Download click.
+    // Only the admin account can add, edit, or remove entries.
+    match /images/{imageId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // users: each person can create/update only their own record
+    // (used to log sign-ins). Only the admin can read the full
+    // collection, which is how the "registered users" count works.
+    match /users/{userId} {
+      allow create, update: if isSignedIn() && request.auth.uid == userId;
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}

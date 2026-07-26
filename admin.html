@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoVault — Admin</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="filmrail"></div>
+
+  <div class="stage">
+    <div class="topbar">
+      <div class="brand"><span class="dot"></span> PhotoVault <span class="pill">admin</span></div>
+      <div class="who" id="whoArea"></div>
+    </div>
+
+    <div class="content">
+
+      <!-- shown when not signed in, or signed in as a non-admin account -->
+      <div class="admin-gate" id="gateArea" style="display:none;">
+        <div class="login-card" style="max-width:380px; margin: 0 auto;">
+          <div class="eyebrow">Restricted</div>
+          <h1 style="font-size:1.5rem;">Admin sign-in</h1>
+          <p class="sub" id="gateSub">This page is for the site administrator only.</p>
+          <div class="error-msg" id="errorMsg"></div>
+
+          <form id="adminLoginForm">
+            <div class="field">
+              <label for="adminEmail">Email</label>
+              <input type="email" id="adminEmail" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="adminPassword">Password</label>
+              <input type="password" id="adminPassword" required autocomplete="current-password" />
+            </div>
+            <div class="login-actions">
+              <button type="submit" class="btn btn-primary" id="adminSubmitBtn">Sign in</button>
+            </div>
+          </form>
+
+          <div id="switchAccountArea" style="display:none; margin-top:16px; text-align:center;">
+            <button class="btn btn-ghost" id="switchAccountBtn">Sign out and try a different account</button>
+          </div>
+
+          <p class="gate-note" style="text-align:center;"><a href="index.html">← Back to the gallery</a></p>
+        </div>
+      </div>
+
+      <!-- shown once signed in as the admin account -->
+      <div id="panelArea" style="display:none;">
+
+        <div class="stats-strip">
+          <div class="stat">
+            <div class="num" id="statUsers">–</div>
+            <div class="label">Registered users</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statImages">–</div>
+            <div class="label">Files in vault</div>
+          </div>
+        </div>
+
+        <div class="upload-panel">
+          <div class="eyebrow">Add to the gallery</div>
+          <p class="upload-hint">Pick one or more images, give it a title and description. Each image is watermarked and all of them are combined into one .docx (one image per page), then uploaded.</p>
+          <form id="uploadForm">
+            <div class="upload-row">
+              <div class="field">
+                <label for="titleInput">Title (shown to visitors)</label>
+                <input type="text" id="titleInput" placeholder="e.g. Sunset over the hills" required />
+              </div>
+              <div class="field">
+                <label for="fileNameInput">File name</label>
+                <input type="text" id="fileNameInput" placeholder="e.g. sunset-hills" required />
+              </div>
+            </div>
+            <div class="upload-row" style="margin-top:14px;">
+              <div class="field" style="flex:2;">
+                <label for="descInput">Description</label>
+                <input type="text" id="descInput" placeholder="A short description visitors will see" />
+              </div>
+              <div class="field file-input-fake">
+                <label style="display:none;">Choose image</label>
+                <input type="file" id="fileInput" accept="image/*" required multiple />
+              </div>
+            </div>
+            <div style="margin-top:16px;">
+              <button type="submit" class="btn btn-primary" id="uploadBtn">Watermark, convert &amp; upload</button>
+            </div>
+          </form>
+          <div class="progress-track" id="progressTrack">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="upload-status" id="uploadStatus"></div>
+        </div>
+
+        <div class="section-head">
+          <h2>Manage files</h2>
+          <span class="count" id="manageCount"></span>
+        </div>
+        <div id="manageArea">
+          <div class="loading-state">Loading files…</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="cloudinary-config.js"></script>
+  <script src="watermark.js"></script>
+  <script src="docx-generator.js"></script>
+  <script src="admin.js"></script>
+</body>
+
+</html>

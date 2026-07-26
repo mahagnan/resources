@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PhotoVault — Gallery</title>
+<link rel="stylesheet" href="style.css" />
+<!-- Google AdSense: paste your auto-ads/site verification script here once
+     your account is approved. See README.md → "Google AdSense setup". -->
+</head>
+<body>
+
+<div class="filmrail"></div>
+
+<div class="stage">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> PhotoVault</div>
+    <div class="who" id="whoArea">
+      <a class="btn btn-ghost" href="login.html">Sign in</a>
+    </div>
+  </div>
+
+  <!-- AD SLOT 1: top banner, below header, before content.
+       Replace the .ad-box div's contents with your AdSense <ins> tag. -->
+  <div class="ad-slot">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-box" id="adSlotTop">
+      <!-- <ins class="adsbygoogle" ...></ins> -->
+      Ad space
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="section-head">
+      <h2>Gallery</h2>
+      <span class="count" id="galleryCount"></span>
+    </div>
+
+    <div id="galleryArea">
+      <div class="loading-state">Loading gallery…</div>
+    </div>
+  </div>
+
+  <!-- AD SLOT 2: footer banner -->
+  <div class="ad-slot">
+    <span class="ad-label">Advertisement</span>
+    <div class="ad-box" id="adSlotBottom">
+      Ad space
+    </div>
+  </div>
+</div>
+
+<!-- login-required modal -->
+<div id="gateModal" style="display:none; position:fixed; inset:0; background:rgba(10,10,9,0.7); align-items:center; justify-content:center; z-index:50;">
+  <div class="login-card" style="max-width:360px;">
+    <div class="eyebrow">Sign in required</div>
+    <h1 style="font-size:1.4rem;">Sign in to download</h1>
+    <p class="sub">Browsing is open to everyone — downloading needs a free account.</p>
+    <div class="login-actions">
+      <a class="btn btn-primary" href="login.html?redirect=index.html">Sign in / Sign up</a>
+      <button class="btn btn-ghost" id="closeGate" type="button">Not now</button>
+    </div>
+  </div>
+</div>
+
+<!-- card template -->
+<template id="cardTemplate">
+  <div class="card">
+    <img class="thumb-img" src="" alt="" />
+    <div class="meta">
+      <span class="ftype-badge">DOCX</span>
+      <div class="fname"></div>
+      <div class="fdesc"></div>
+      <div class="card-actions">
+        <button class="btn download-btn" type="button">Download</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="gallery.js"></script>
+</body>
+</html>
