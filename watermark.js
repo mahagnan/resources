@@ -65,7 +65,7 @@ async function watermarkImage(file) {
 
   ctx.save();
   ctx.globalCompositeOperation = "overlay"; // blends into the image rather than sitting flatly on top
-  ctx.globalAlpha = 0.5;
+  ctx.globalAlpha = 0.7;
 
   if (WATERMARK_LOGO_URL) {
     const logo = await loadImage(WATERMARK_LOGO_URL).catch(() => null);
