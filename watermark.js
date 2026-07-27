@@ -34,8 +34,17 @@ async function watermarkImage(file) {
   });
 
   const img = await loadImage(dataUrl);
-  const w = img.naturalWidth;
-  const h = img.naturalHeight;
+  let w = img.naturalWidth;
+  let h = img.naturalHeight;
+
+  // Shrink large photos so the final file stays well under Cloudinary's
+  // 10MB limit, even with multiple images in one doc.
+  const MAX_DIMENSION = 1600;
+  if (w > MAX_DIMENSION || h > MAX_DIMENSION) {
+    const scale = MAX_DIMENSION / Math.max(w, h);
+    w = Math.round(w * scale);
+    h = Math.round(h * scale);
+  }
 
   const canvas = document.createElement("canvas");
   canvas.width = w;
