@@ -13,7 +13,7 @@
 // ============================================================
 
 const WATERMARK_TEXT = "MahaGnan";
-const WATERMARK_LOGO_URL = "https://res.cloudinary.com/vnpinxun/image/upload/v1785082241/ChatGPT_Image_Jul_26_2026_09_40_24_PM_tefuxo.png";
+const WATERMARK_LOGO_URL = "https://res.cloudinary.com/vnpinxun/image/upload/v1785083818/MahaGnan_Banner_WaterMark_y1ja6f.png";
 
 function loadImage(src) {
   return new Promise((resolve, reject) => {
